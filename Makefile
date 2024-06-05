@@ -5,7 +5,7 @@ BUILD_DIR:=build/debug
 
 CC:=g++
 COMPILE_FLAGS:=`pkg-config sdl3 --cflags`-g -std=c++11
-LINKER_FLAGS:='pkg-config sdl3 --lib' -Llib -Iinclude
+LINKER_FLAGS:=`pkg-config sdl3` -Llib -Iinclude
 
 SOURCE_FILES:=$(wildcard $(SRC_DIR)/*.cpp)
 OBJECT_FILES:=$(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SOURCE_FILES))
