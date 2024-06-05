@@ -1,1 +1,4 @@
 build/**
+include/**
+lib/**
+roms/**
