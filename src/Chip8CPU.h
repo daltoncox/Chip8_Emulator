@@ -9,10 +9,11 @@ class Chip8CPU {
    public:
     Chip8CPU();
 
+    bool LoadROM(string romname);
+    bool Cycle();
     void SetKey(short key, bool value);
     uint32_t* GetScreen();
 
-    bool LoadROM(string romname);
     uint16_t GetNextOpcode();
     bool ProcessOpcode(uint16_t opcode);
 
@@ -56,9 +57,12 @@ class Chip8CPU {
    private:
     uint8_t ROM[0xFFF]{};
     uint16_t ProgramCounter, AddressI;
-    uint8_t Register[16]{};
-    bool Key[16]{};
     vector<uint16_t> Stack;
+    uint8_t Register[16]{};
+
+    uint8_t delayTIMER, soundTIMER;
+
+    bool Key[16]{};
 
     uint32_t Screen[64 * 32]{};
 };

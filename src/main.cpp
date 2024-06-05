@@ -10,5 +10,10 @@ using namespace std;
 
 int main() {
     cout << "Running Emulator" << endl;
+
+    Chip8CPU processor;
+    processor.LoadROM("roms/pong.rom");
+
+    while (processor.Cycle());
     return 0;
 }
