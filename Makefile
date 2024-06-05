@@ -18,7 +18,7 @@ run: $(TARGET)
 
 #Linking step
 $(TARGET): $(OBJECT_FILES)
-	$(CC) $(LINKER_FLAGS) -o $@ $^
+	$(CC) $(LINKER_FLAGS) -o $(BUILD_DIR)/$@ $^
 
 #Compile step
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
