@@ -204,39 +204,126 @@ bool Chip8CPU::ProcessOpcode(uint16_t opcode) {
     return true;
 }
 
+// Clears the screen.
 void Chip8CPU::opcode00E0() { return; }
+
+// Returns from a subroutine.
 void Chip8CPU::opcode00EE() { return; }
+
+// Jumps to address NNN.
 void Chip8CPU::opcode1NNN(uint16_t opcode) { return; }
+
+// Calls subroutine at NNN.
 void Chip8CPU::opcode2NNN(uint16_t opcode) { return; }
+
+// Skips the next instruction if VX equals NN
 void Chip8CPU::opcode3XNN(uint16_t opcode) { return; }
+
+// Skips the next instruction if VX does not equal NN
 void Chip8CPU::opcode4XNN(uint16_t opcode) { return; }
+
+// Skips the next instruction if VX equals VY
 void Chip8CPU::opcode5XY0(uint16_t opcode) { return; }
+
+// Sets VX to NN
 void Chip8CPU::opcode6XNN(uint16_t opcode) { return; }
+
+// Adds NN to VX (carry flag is not changed)
 void Chip8CPU::opcode7XNN(uint16_t opcode) { return; }
+
+// Sets VX to the value of VY
 void Chip8CPU::opcode8XY0(uint16_t opcode) { return; }
+
+// Sets VX to VX or VY. (bitwise OR operation)
 void Chip8CPU::opcode8XY1(uint16_t opcode) { return; }
+
+// Sets VX to VX and VY. (bitwise AND operation)
 void Chip8CPU::opcode8XY2(uint16_t opcode) { return; }
+
+// Sets VX to VX xor VY
 void Chip8CPU::opcode8XY3(uint16_t opcode) { return; }
+
+// Adds VY to VX. VF is set to 1 when there's an overflow, and to 0 when there
+// is not
 void Chip8CPU::opcode8XY4(uint16_t opcode) { return; }
+
+// VY is subtracted from VX. VF is set to 0 when there's an underflow, and 1
+// when there is not. (i.e. VF set to 1 if VX >= VY and 0 if not)
 void Chip8CPU::opcode8XY5(uint16_t opcode) { return; }
+
+// Shifts VX to the right by 1, then stores the least significant bit of VX
+// prior to the shift into VF.
 void Chip8CPU::opcode8XY6(uint16_t opcode) { return; }
+
+// Sets VX to VY minus VX. VF is set to 0 when there's an underflow, and 1 when
+// there is not. (i.e. VF set to 1 if VY >= VX)
 void Chip8CPU::opcode8XY7(uint16_t opcode) { return; }
+
+// Shifts VX to the left by 1, then sets VF to 1 if the most significant bit of
+// VX prior to that shift was set, or to 0 if it was unset.
 void Chip8CPU::opcode8XYE(uint16_t opcode) { return; }
+
+// Skips the next instruction if VX does not equal VY. (Usually the next
+// instruction is a jump to skip a code block).
 void Chip8CPU::opcode9XY0(uint16_t opcode) { return; }
+
+// Sets I to the address NNN.
 void Chip8CPU::opcodeANNN(uint16_t opcode) { return; }
+
+// Jumps to the address NNN plus V0.
 void Chip8CPU::opcodeBNNN(uint16_t opcode) { return; }
+
+// Sets VX to the result of a bitwise and operation on a random number
+// (Typically: 0 to 255) and NN
 void Chip8CPU::opcodeCXNN(uint16_t opcode) { return; }
+
+// Draws a sprite at coordinate (VX, VY) that has a width of 8 pixels and a
+// height of N pixels. Each row of 8 pixels is read as bit-coded starting from
+// memory location I; I value does not change after the execution of this
+// instruction. As described above, VF is set to 1 if any screen pixels are
+// flipped from set to unset when the sprite is drawn, and to 0 if that does not
+// happen.
 void Chip8CPU::opcodeDXYN(uint16_t opcode) { return; }
+
+// Skips the next instruction if the key stored in VX is pressed
 void Chip8CPU::opcodeEX9E(uint16_t opcode) { return; }
+
+// Skips the next instruction if the key stored in VX is not pressed
 void Chip8CPU::opcodeEXA1(uint16_t opcode) { return; }
+
+// Sets VX to the value of the delay timer
 void Chip8CPU::opcodeFX07(uint16_t opcode) { return; }
+
+// A key press is awaited, and then stored in VX (blocking operation, all
+// instruction halted until next key event)
 void Chip8CPU::opcodeFX0A(uint16_t opcode) { return; }
+
+// Sets the delay timer to VX.
 void Chip8CPU::opcodeFX15(uint16_t opcode) { return; }
+
+// Sets the sound timer to VX
 void Chip8CPU::opcodeFX18(uint16_t opcode) { return; }
+
+// Adds VX to I. VF is not affected
 void Chip8CPU::opcodeFX1E(uint16_t opcode) { return; }
+
+// Sets I to the location of the sprite for the character in VX. Characters 0-F
+// (in hexadecimal) are represented by a 4x5 font
 void Chip8CPU::opcodeFX29(uint16_t opcode) { return; }
+
+// Stores the binary-coded decimal representation of VX, with the hundreds digit
+// in memory at location in I, the tens digit at location I+1, and the ones
+// digit at location I+2.
 void Chip8CPU::opcodeFX33(uint16_t opcode) { return; }
+
+// Stores from V0 to VX (including VX) in memory, starting at address I. The
+// offset from I is increased by 1 for each value written, but I itself is left
+// unmodified.
 void Chip8CPU::opcodeFX55(uint16_t opcode) { return; }
+
+// Fills from V0 to VX (including VX) with values from memory, starting at
+// address I. The offset from I is increased by 1 for each value read, but I
+// itself is left unmodified
 void Chip8CPU::opcodeFX65(uint16_t opcode) { return; }
 
 void Chip8CPU::DebugMenu() {
