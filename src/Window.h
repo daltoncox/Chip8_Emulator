@@ -1,9 +1,9 @@
-#ifndef Window.h
-#define Window.h
+#ifndef WindowHeader
+#define WindowHeader
 
-class Window{
-
-	Window(int width, int height, int scale, int pitch);
-}
+class Window {
+   public:
+    Window(int width, int height, int scale, int pitch);
+};
 
 #endif
