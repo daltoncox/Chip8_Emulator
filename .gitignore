@@ -2,3 +2,4 @@ build/**
 include/**
 lib/**
 roms/**
+.vscode/**
