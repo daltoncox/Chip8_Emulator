@@ -234,7 +234,7 @@ void Chip8CPU::opcode2NNN(uint16_t opcode) {
 
 // Skips the next instruction if Register[(opcode & 0x0F00) >> 8] equals NN
 void Chip8CPU::opcode3XNN(uint16_t opcode) {
-    if (Register[(opcode & 0x0F00) >> 8] == opcode & 0x00FF)
+    if (Register[(opcode & 0x0F00) >> 8] == (opcode & 0x00FF))
         ProgramCounter += 2;
     return;
 }
@@ -242,7 +242,7 @@ void Chip8CPU::opcode3XNN(uint16_t opcode) {
 // Skips the next instruction if Register[(opcode & 0x0F00) >> 8] does not equal
 // NN
 void Chip8CPU::opcode4XNN(uint16_t opcode) {
-    if (Register[(opcode & 0x0F00) >> 8] != opcode & 0x00FF)
+    if (Register[(opcode & 0x0F00) >> 8] != (opcode & 0x00FF))
         ProgramCounter += 2;
 
     return;

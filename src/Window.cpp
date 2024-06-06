@@ -131,4 +131,5 @@ bool Window::ProcessInput(bool key[]) {
                 }
         }
     }
+    return true;
 }
