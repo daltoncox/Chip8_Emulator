@@ -71,7 +71,7 @@ bool Chip8CPU::LoadROM(string romname) {
 }
 
 bool Chip8CPU::Cycle() {
-    DebugMenu();
+    // DebugMenu();
 
     if (!ProcessOpcode(GetNextOpcode())) return false;
     if (soundTIMER > 0) soundTIMER--;

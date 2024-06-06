@@ -14,7 +14,7 @@ all: run
 
 #Runs the program
 run: $(TARGET)
-	./$(BUILD_DIR)/$(TARGET)
+	./$(BUILD_DIR)/$(TARGET) 3 pong.rom
 
 #Linking step
 $(TARGET): $(OBJECT_FILES)

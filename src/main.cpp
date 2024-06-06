@@ -8,13 +8,18 @@ Second attempt at a chip 8 emulator
 #include "Window.h"
 using namespace std;
 
-int main() {
-    int delayTime = 2;
+int main(int argc, char** argv) {
+    if (argc != 3) {
+        cout << "ERROR: Usage: <CycleTimeInMs> <RomNameIn/rom>" << endl;
+    }
+
+    int delayTime = stoi(argv[1]);
+    string romname = argv[2];
 
     cout << "Running Emulator" << endl;
 
     Chip8CPU processor;
-    if (!processor.LoadROM("roms/tetris.rom")) return 1;
+    if (!processor.LoadROM("roms/" + romname)) return 1;
 
     Window window("Chip8_Emulator", 64, 32, 10);
 
