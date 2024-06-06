@@ -64,7 +64,6 @@ bool Window::ProcessInput(bool* Keys) {
                         break;
                     case SDLK_x:
                         Keys[0x0] = 1;
-                        return false;
                         break;
                     case SDLK_z:
                         Keys[0xA] = 1;

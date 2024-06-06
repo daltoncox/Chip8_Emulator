@@ -14,7 +14,7 @@ int main() {
     cout << "Running Emulator" << endl;
 
     Chip8CPU processor;
-    if (!processor.LoadROM("roms/pong.rom")) return 1;
+    if (!processor.LoadROM("roms/tetris.rom")) return 1;
 
     Window window("Chip8_Emulator", 64, 32, 10);
 
