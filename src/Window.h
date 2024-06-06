@@ -10,7 +10,7 @@ class Window {
     ~Window();
 
     void UpdateScreen(void const* buffer, int pitch);
-    short ProcessInput();
+    bool ProcessInput(bool key[]);
 
    private:
     SDL_Window* window;

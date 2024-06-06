@@ -11,7 +11,7 @@ class Chip8CPU {
 
     bool LoadROM(string romname);
     bool Cycle();
-    void SetKey(short key, bool value);
+    bool* GetKeyPointer();
     uint32_t* GetScreen();
 
     uint16_t GetNextOpcode();
