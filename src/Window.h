@@ -6,7 +6,7 @@
 using namespace std;
 class Window {
    public:
-    Window(const char* title, int width, int height, int scale, int pitch);
+    Window(const char* title, int width, int height, int scale);
     ~Window();
 
     void UpdateScreen(void const* buffer, int pitch);

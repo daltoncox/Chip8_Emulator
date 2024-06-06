@@ -1,7 +1,7 @@
 /*
 Second attempt at a chip 8 emulator
 */
-#include <iomanip>
+#include <chrono>
 #include <iostream>
 
 #include "Chip8CPU.h"
@@ -9,11 +9,29 @@ Second attempt at a chip 8 emulator
 using namespace std;
 
 int main() {
+    int delayTime = 4;
+
     cout << "Running Emulator" << endl;
 
     Chip8CPU processor;
-    processor.LoadROM("roms/pong.rom");
+    if (!processor.LoadROM("roms/pong.rom")) return 1;
 
-    while (processor.Cycle());
+    Window window("Chip8_Emulator", 64, 32, 10);
+
+    auto lastCycle = chrono::high_resolution_clock::now();
+    float timeSinceLast;
+
+    while (window.ProcessInput(processor.GetKeyPointer())) {
+        auto currentTime = chrono::high_resolution_clock::now();
+        timeSinceLast = chrono::duration<float, chrono::milliseconds::period>(
+                            currentTime - lastCycle)
+                            .count();
+
+        if (timeSinceLast > delayTime) {
+            lastCycle = currentTime;
+            if (!processor.Cycle()) return 2;
+            window.UpdateScreen(processor.GetScreen(), 4 * 64);
+        }
+    }
     return 0;
 }

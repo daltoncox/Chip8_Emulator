@@ -1,6 +1,6 @@
 #include "Window.h"
 
-Window::Window(const char* title, int width, int height, int scale, int pitch) {
+Window::Window(const char* title, int width, int height, int scale) {
     SDL_Init(SDL_INIT_VIDEO);
     window = SDL_CreateWindow(title, width * scale, height * scale,
                               SDL_WINDOW_RESIZABLE);
