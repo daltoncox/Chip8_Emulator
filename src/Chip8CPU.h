@@ -11,7 +11,6 @@ class Chip8CPU {
 
     bool LoadROM(string romname);
     bool Cycle();
-    bool* GetKeyPointer();
     uint32_t* GetScreen();
 
     uint16_t GetNextOpcode();
@@ -53,6 +52,7 @@ class Chip8CPU {
     void opcodeFX65(uint16_t opcode);
 
     void DebugMenu();
+    bool Key[16]{};
 
    private:
     uint8_t ROM[0xFFF]{};
@@ -61,8 +61,6 @@ class Chip8CPU {
     uint8_t Register[16]{};
 
     uint8_t delayTIMER, soundTIMER;
-
-    bool Key[16]{};
 
     uint32_t Screen[64 * 32]{};
 };

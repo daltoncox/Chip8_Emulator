@@ -9,7 +9,7 @@ Second attempt at a chip 8 emulator
 using namespace std;
 
 int main() {
-    int delayTime = 4;
+    int delayTime = 2;
 
     cout << "Running Emulator" << endl;
 
@@ -21,7 +21,8 @@ int main() {
     auto lastCycle = chrono::high_resolution_clock::now();
     float timeSinceLast;
 
-    while (window.ProcessInput(processor.GetKeyPointer())) {
+    while (window.ProcessInput(processor.Key)) {
+        // processor.Key[1] = 1;
         auto currentTime = chrono::high_resolution_clock::now();
         timeSinceLast = chrono::duration<float, chrono::milliseconds::period>(
                             currentTime - lastCycle)

@@ -1,6 +1,8 @@
 // Chip8CPU implementation file
 #include "Chip8CPU.h"
 
+#include <stdlib.h>
+
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -33,7 +35,32 @@ bool Chip8CPU::LoadROM(string romname) {
     }
     delete[] buffer;
 
-    for (int i; i < size; i++) {
+    // initializes the fontset
+    uint8_t fontset[80] = {
+        0xF0, 0x90, 0x90, 0x90, 0xF0,  // 0
+        0x20, 0x60, 0x20, 0x20, 0x70,  // 1
+        0xF0, 0x10, 0xF0, 0x80, 0xF0,  // 2
+        0xF0, 0x10, 0xF0, 0x10, 0xF0,  // 3
+        0x90, 0x90, 0xF0, 0x10, 0x10,  // 4
+        0xF0, 0x80, 0xF0, 0x10, 0xF0,  // 5
+        0xF0, 0x80, 0xF0, 0x90, 0xF0,  // 6
+        0xF0, 0x10, 0x20, 0x40, 0x40,  // 7
+        0xF0, 0x90, 0xF0, 0x90, 0xF0,  // 8
+        0xF0, 0x90, 0xF0, 0x10, 0xF0,  // 9
+        0xF0, 0x90, 0xF0, 0x90, 0x90,  // A
+        0xE0, 0x90, 0xE0, 0x90, 0xE0,  // B
+        0xF0, 0x80, 0x80, 0x80, 0xF0,  // C
+        0xE0, 0x90, 0x90, 0x90, 0xE0,  // D
+        0xF0, 0x80, 0xF0, 0x80, 0xF0,  // E
+        0xF0, 0x80, 0xF0, 0x80, 0x80   // F
+    };
+
+    // writes the fontset to memory
+    for (int i = 0; i < 80; i++) {
+        ROM[0x050 + i] = fontset[i];
+    }
+
+    for (int i = 0; i < size; i++) {
         if (i % 16 == 0) cout << endl;
         cout << hex << setw(2) << setfill('0') << (int)ROM[i + 0x200];
         cout << ' ';
@@ -51,8 +78,6 @@ bool Chip8CPU::Cycle() {
     if (delayTIMER > 0) delayTIMER--;
     return true;
 }
-
-bool* Chip8CPU::GetKeyPointer() { return Key; }
 
 uint32_t* Chip8CPU::GetScreen() { return Screen; }
 
@@ -389,16 +414,16 @@ void Chip8CPU::opcodeCXNN(uint16_t opcode) {
 // flipped from set to unset when the sprite is drawn, and to 0 if that does not
 // happen.
 void Chip8CPU::opcodeDXYN(uint16_t opcode) {
-    uint8_t xcord = Register[(opcode & 0x0F00) >> 8];
-    uint8_t ycord = Register[(opcode & 0x00F0) >> 4];
+    uint8_t xcord = Register[(opcode & 0x0F00) >> 8] % 64;
+    uint8_t ycord = Register[(opcode & 0x00F0) >> 4] % 32;
     uint8_t height = opcode & 0x000F;
     Register[0xF] = 0;
 
     for (int row = 0; row < height; row++) {
-        uint8_t spriteROW = ROM[AddressI];
+        uint8_t spriteROW = ROM[AddressI + row];
         for (int col = 0; col < 8; col++) {
-            bool spritePIXEL = spriteROW & (0x80 >> row);
-            int screenCORD = ((ycord + row) * 64) + (xcord + col);
+            bool spritePIXEL = spriteROW & (0x80 >> col);
+            int screenCORD = (((ycord + row)) * 64 + (xcord + col)) % 2048;
 
             if (spritePIXEL) {
                 if (Screen[screenCORD]) Register[0xF] = 1;
@@ -465,7 +490,7 @@ void Chip8CPU::opcodeFX1E(uint16_t opcode) {
 // Sets I to the location of the sprite for the character in Register[(opcode &
 // 0x0F00) >> 8]. Characters 0-F (in hexadecimal) are represented by a 4x5 font
 void Chip8CPU::opcodeFX29(uint16_t opcode) {
-    AddressI = 0x50 + Register[(opcode & 0x0F00) >> 8];
+    AddressI = 0x050 + (5 * Register[(opcode & 0x0F00) >> 8]);
     return;
 }
 
@@ -504,11 +529,18 @@ void Chip8CPU::opcodeFX65(uint16_t opcode) {
 }
 
 void Chip8CPU::DebugMenu() {
+    system("clear");
     uint16_t opcode;
     opcode = ROM[ProgramCounter];
     opcode <<= 8;
     opcode |= ROM[ProgramCounter + 1];
 
     cout << hex << setw(4) << setfill('0') << (int)opcode << endl;
+
+    for (int i = 0; i < 16; i++) {
+        cout << "V" << hex << i << ": " << setw(2) << setfill('0')
+             << (int)Register[i] << "    K" << i << ": " << Key[i] << endl;
+    }
+
     return;
 }
