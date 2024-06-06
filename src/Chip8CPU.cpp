@@ -52,7 +52,10 @@ bool Chip8CPU::Cycle() {
     return true;
 }
 
-void Chip8CPU::SetKey(short key, bool value) { Key[key] = value; }
+void Chip8CPU::SetKey(short key, bool value) {
+    if (key = -1) return;
+    Key[key] = value;
+}
 
 uint32_t* Chip8CPU::GetScreen() { return Screen; }
 
