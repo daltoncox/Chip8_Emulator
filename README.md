@@ -1,1 +1,1 @@
-Attempt at a Chip 8 Emulator written for mac
+My attempt at a Chip8 Emulator. The include and lib directories are for SDL3, and the ones found on this page are for MacOS. However, if you found the SDL3 directories for your system, the program could be recompiled for a different OS. The main executable included in build/debug has run well on MacOS Sonoma. It has worked with Pong, Tetris, and an elementary form of Space Invaders which are not included because I do not want to be sued yet. 
