@@ -1,7 +1,7 @@
 TARGET:=main
 SRC_DIR:=src
-OBJ_DIR:=build/obj
-BUILD_DIR:=build/debug
+OBJ_DIR:=obj
+BUILD_DIR:=bin
 
 CC:=g++
 COMPILE_FLAGS:=`pkg-config sdl3 --cflags`-g -std=c++11
@@ -10,7 +10,7 @@ LINKER_FLAGS:=`pkg-config --cflags --libs sdl3` -Llib -Iinclude
 SOURCE_FILES:=$(wildcard $(SRC_DIR)/*.cpp)
 OBJECT_FILES:=$(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SOURCE_FILES))
 
-all: run
+default: run
 
 #Runs the program
 run: $(TARGET)
@@ -23,3 +23,6 @@ $(TARGET): $(OBJECT_FILES)
 #Compile step
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(CC) $(COMPILE_FLAGS) -c -o $@ $<
+
+tree:
+	mkdir src obj bin
