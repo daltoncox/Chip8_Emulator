@@ -14,7 +14,7 @@ A simple and educational Chip-8 emulator written in C++. This project aims to re
 ### Prerequisites
 
 - C++ compiler (C++11 or newer recommended)
-- SDL2 library (for graphics and input)
+- SDL3 library (for graphics and input)
 
 ### Building
 
